@@ -5,8 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style type="text/tailwindcss">
+      @layer components {
+        .btn {
+          @apply bg-indigo-600 px-4 py-3 text-center text-sm font-semibold inline-block text-white cursor-pointer uppercase transition duration-200 ease-in-out rounded-md hover:bg-indigo-800 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-600 focus-visible:ring-offset-2 active:scale-95;
+        }
+      }
+    </style>
   </head>
-  <body>
+  <body class="container mx-auto">
     <h1 class="text-3xl font-bold underline text text-3">Hello world!</h1>
+    <p class="font-light text-3xl text-gray-200 bg-red-400 py-2 px-4 m-10">
+      The best content around
+    </p>
+    <p class="text-center bg-[rgba(44,38,135,0.4)] cursor-grab">
+      Some specific values are needed here
+    </p>
+    <p class="flex flex-col gap-2 w-40 m-5 mx-auto">
+      <button class="btn">Tailwind 1</button>
+      <button class="btn">Tailwind 2</button>
+      <button class="btn">Tailwind 3</button>
+    </p>
   </body>
 </html>
