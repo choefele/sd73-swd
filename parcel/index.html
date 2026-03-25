@@ -3,12 +3,13 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Parcel + TypeScript</title>
+    <title>Parcel + TypeScript + Leaflet + Tailwind</title>
   </head>
-  <body>
-    <main>
-      <h1>Parcel + TypeScript</h1>
-      <p id="message">Loading...</p>
+  <body class="min-h-screen bg-slate-100 text-slate-900">
+    <main class="mx-auto max-w-5xl p-6 md:p-10">
+      <h1 class="text-3xl font-bold tracking-tight">Parcel + TypeScript + Leaflet + Tailwind</h1>
+      <p id="message" class="mt-2 text-slate-600">Loading map...</p>
+      <div id="map" class="mt-6 h-[60vh] w-full overflow-hidden rounded-xl border border-slate-300"></div>
     </main>
     <script type="module" src="./src/index.ts"></script>
   </body>

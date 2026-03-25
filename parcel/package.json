@@ -11,7 +11,13 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
+    "@tailwindcss/postcss": "^4.2.2",
     "parcel": "^2.16.4",
+    "postcss": "^8.5.8",
+    "tailwindcss": "^4.2.2",
     "typescript": "^6.0.2"
+  },
+  "dependencies": {
+    "leaflet": "^1.9.4"
   }
 }
