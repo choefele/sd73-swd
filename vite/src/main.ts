@@ -1,24 +1,61 @@
-import './style.css'
-import 'leaflet/dist/leaflet.css'
-import L from 'leaflet'
-import marker2x from 'leaflet/dist/images/marker-icon-2x.png'
-import marker from 'leaflet/dist/images/marker-icon.png'
-import shadow from 'leaflet/dist/images/marker-shadow.png'
+import "leaflet/dist/leaflet.css";
+import L from "leaflet";
+import type { LatLngTuple } from "leaflet";
+import "./style.css";
 
-L.Icon.Default.mergeOptions({
-  iconRetinaUrl: marker2x,
-  iconUrl: marker,
-  shadowUrl: shadow,
-})
+const message = document.querySelector<HTMLParagraphElement>("#message");
+const mapElement = document.querySelector<HTMLDivElement>("#map");
 
-const map = L.map('map').setView([52.52, 13.405], 12)
+if (!mapElement) {
+  throw new Error("Map container #map not found.");
+}
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+const map = L.map(mapElement);
+const markerIcon = L.icon({
+  iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
+  iconAnchor: [10, 20],
+});
+
+const myLocations: {
+  name: string;
+  location: LatLngTuple;
+  description: string;
+}[] = [
+  {
+    name: "WBS CODING SCHOOL",
+    location: [52.457131, 13.54007],
+    description: "The best coding school in the world",
+  },
+  {
+    name: "Alexanderplatz",
+    location: [52.521918, 13.413215],
+    description: "The most famous square in Berlin",
+  },
+  {
+    name: "Brandenburg Gate",
+    location: [52.516275, 13.377704],
+    description: "The most famous gate in Berlin",
+  },
+  {
+    name: "Berlin Wall",
+    location: [52.507541, 13.39032],
+    description: "The most famous wall in Berlin",
+  },
+];
+myLocations.forEach((location) => {
+  L.marker(location.location, { icon: markerIcon })
+    .bindPopup(location.description)
+    .addTo(map);
+});
+
+L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
   maxZoom: 19,
-  attribution: '&copy; OpenStreetMap contributors',
-}).addTo(map)
+  attribution:
+    '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+}).addTo(map);
+const bounds = L.latLngBounds(myLocations.map((location) => location.location));
+map.fitBounds(bounds);
 
-L.marker([52.52, 13.405])
-  .addTo(map)
-  .bindPopup('Berlin city center')
-  .openPopup()
+if (message) {
+  message.textContent = "Leaflet map loaded with TailwindCSS styling.";
+}
