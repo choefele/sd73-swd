@@ -1,5 +1,5 @@
 import "leaflet/dist/leaflet.css";
-import L from "leaflet";
+import L, { LatLngTuple } from "leaflet";
 import "./styles.css";
 
 const message = document.querySelector<HTMLParagraphElement>("#message");
@@ -14,7 +14,12 @@ const markerIcon = L.icon({
   iconUrl: "https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png",
   iconAnchor: [10, 20],
 });
-const myLocations = [
+
+const myLocations: {
+  name: string;
+  location: LatLngTuple;
+  description: string;
+}[] = [
   {
     name: "WBS CODING SCHOOL",
     location: [52.457131, 13.54007],
