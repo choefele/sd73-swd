@@ -25,8 +25,8 @@ async function fetchProducts(signal: AbortSignal): Promise<Product[]> {
   return result.json();
 }
 
-function useData() {
-  const [data, setData] = useState<Product[]>();
+function useData<T>(fetchData: (signal: AbortSignal) => Promise<T>) {
+  const [data, setData] = useState<T>();
   const [error, setError] = useState<string>();
   const [loading, setLoading] = useState(false);
 
@@ -37,7 +37,7 @@ function useData() {
       setLoading(true);
 
       try {
-        const response = await fetchProducts(controller.signal);
+        const response = await fetchData(controller.signal);
         setData(response);
       } catch (err) {
         if (err instanceof DOMException && err.name === "AbortError") {
@@ -53,9 +53,9 @@ function useData() {
     return () => {
       controller.abort();
     };
-  }, []);
+  }, [fetchData]);
 
   return { data, error, loading };
 }
 
-export { useData, type Product };
+export { useData, fetchProducts, type Product };

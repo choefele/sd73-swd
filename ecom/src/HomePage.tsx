@@ -1,8 +1,8 @@
 import Card from "./Card";
-import { useData } from "./lib/useData";
+import { fetchProducts, useData } from "./lib/useData";
 
 export default function HomePage() {
-  const { data, error, loading } = useData();
+  const { data, error, loading } = useData(fetchProducts);
   return (
     <>
       {loading && <p>Loading...</p>}
