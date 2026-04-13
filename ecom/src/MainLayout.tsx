@@ -15,18 +15,9 @@ export default function MainLayout() {
               className={({ isActive }) =>
                 `btn btn-sm ${isActive ? "btn-primary" : "btn-ghost"}`
               }
-              to="/"
-              end
+              to="/cart"
             >
-              Home
-            </NavLink>
-            <NavLink
-              className={({ isActive }) =>
-                `btn btn-sm ${isActive ? "btn-primary" : "btn-ghost"}`
-              }
-              to="/about"
-            >
-              About
+              Cart
             </NavLink>
           </nav>
         </div>

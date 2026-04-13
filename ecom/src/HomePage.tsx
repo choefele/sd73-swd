@@ -1,4 +1,4 @@
-import Card from "./Card";
+import ProductItem from "./ProductItem";
 import { fetchProducts, useData } from "./lib/useData";
 
 export default function HomePage() {
@@ -9,7 +9,7 @@ export default function HomePage() {
       {error && <p>{error}</p>}
       <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
         {data?.map((product) => (
-          <Card {...product} />
+          <ProductItem key={product.id} product={product} />
         ))}
       </div>
     </>
