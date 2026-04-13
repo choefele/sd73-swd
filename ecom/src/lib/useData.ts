@@ -9,12 +9,13 @@ type Product = {
   image: string;
 };
 
-async function fetchProducts(): Promise<Product[]> {
+async function fetchProducts(signal: AbortSignal): Promise<Product[]> {
   const result = await fetch("https://fakestoreapi.com/products", {
     method: "GET",
     headers: {
       accept: "application/json",
     },
+    signal,
   });
 
   if (!result.ok) {
@@ -30,31 +31,27 @@ function useData() {
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    let ignore = false;
+    const controller = new AbortController();
 
-    const fetchData = async () => {
+    (async () => {
       setLoading(true);
 
       try {
-        const reponse = await fetchProducts();
-        if (!ignore) {
-          setData(reponse);
-        }
+        const response = await fetchProducts(controller.signal);
+        setData(response);
       } catch (err) {
-        if (!ignore) {
-          setError(err instanceof Error ? err.message : "Unknown error");
+        if (err instanceof DOMException && err.name === "AbortError") {
+          return;
         }
-      } finally {
-        if (!ignore) {
-          setLoading(false);
-        }
-      }
-    };
 
-    fetchData();
+        setError(err instanceof Error ? err.message : "Unknown error");
+      } finally {
+        setLoading(false);
+      }
+    })();
 
     return () => {
-      ignore = true;
+      controller.abort();
     };
   }, []);
 
