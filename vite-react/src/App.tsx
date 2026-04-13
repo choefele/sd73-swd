@@ -1,13 +1,15 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
+import { useState } from "react";
+import reactLogo from "./assets/react.svg";
+import viteLogo from "./assets/vite.svg";
+import heroImg from "./assets/hero.png";
+import Component from "./Component";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(0);
 
   return (
     <div className="mx-auto box-border flex min-h-screen w-full max-w-[1126px] flex-col border-x border-[#e5e4e7] bg-white text-center text-[18px] leading-[145%] tracking-[0.18px] text-[#6b6375] antialiased [font-family:system-ui,'Segoe_UI',Roboto,sans-serif] max-[1024px]:text-[16px] dark:border-[#2e303a] dark:bg-[#16171d] dark:text-[#9ca3af]">
+      <Component text="<text>" number={25} />
       <section className="flex grow flex-col place-content-center place-items-center gap-[25px] max-[1024px]:gap-[18px] max-[1024px]:px-5 max-[1024px]:py-8">
         <div className="relative">
           <img
@@ -33,11 +35,11 @@ function App() {
             Get started
           </h1>
           <p>
-            Edit{' '}
+            Edit{" "}
             <code className="inline-flex rounded bg-[#f4f3ec] px-2 py-1 text-[15px] leading-[135%] text-[#08060d] [font-family:ui-monospace,Consolas,monospace] dark:bg-[#1f2028] dark:text-[#f3f4f6]">
               src/App.tsx
-            </code>{' '}
-            and save to test{' '}
+            </code>{" "}
+            and save to test{" "}
             <code className="inline-flex rounded bg-[#f4f3ec] px-2 py-1 text-[15px] leading-[135%] text-[#08060d] [font-family:ui-monospace,Consolas,monospace] dark:bg-[#1f2028] dark:text-[#f3f4f6]">
               HMR
             </code>
@@ -183,7 +185,7 @@ function App() {
       </div>
       <section className="h-[88px] border-t border-[#e5e4e7] max-[1024px]:h-12 dark:border-[#2e303a]"></section>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
