@@ -21,7 +21,7 @@ export default function ProductCard({ product }: { product: Product }) {
       <div className="card-body">
         <span className="badge badge-xs badge-warning">{product.category}</span>
         <h2 className="card-title">{product.title}</h2>
-        <p className="line-clamp-5">{product.description}</p>
+        <p className="truncate">{product.description}</p>
         <div className="card-actions justify-between items-baseline">
           <span className="text-xl">{formattedPrice}</span>
           <button className="btn btn-primary" onClick={addToCart}>
