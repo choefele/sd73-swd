@@ -9,6 +9,8 @@ A minimal Express server using Node.js, TypeScript, native ESM modules, and tsx 
 - `npm start` runs the built server.
 - `npm run typecheck` checks TypeScript types.
 
+Both `npm run dev` and `npm start` load local configuration from `.env` when the file exists.
+
 ## Endpoints
 
 - `GET /` returns a hello message.
