@@ -1,16 +1,10 @@
 import express from "express";
-import userRoutes from "./controllers/users.js";
+import { createUser, readUsers } from "./controllers/users.js";
 import "./db.js";
 
 export const app = express();
 
 app.use(express.json());
-
-app.get("/", (_, response) => {
-  response.json({
-    message: "Hello from Express and TypeScript",
-  });
-});
 
 app.get("/health", (_request, response) => {
   response.json({
@@ -18,7 +12,8 @@ app.get("/health", (_request, response) => {
   });
 });
 
-app.use("/users", userRoutes);
+app.post("/users", createUser);
+app.get("/users", readUsers);
 
 if (process.env.NODE_ENV !== "test") {
   const port = Number(process.env.PORT) || 3000;

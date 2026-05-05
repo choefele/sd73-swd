@@ -1,9 +1,7 @@
-import { Router } from "express";
-import User from "../models/users.js";
+import { RequestHandler } from "express";
+import User from "../models/user.js";
 
-const userRoutes = Router();
-
-userRoutes.post("/", async (req, res) => {
+export const createUser: RequestHandler = async (req, res) => {
   try {
     const user = await User.create(req.body);
     res.status(201);
@@ -12,9 +10,9 @@ userRoutes.post("/", async (req, res) => {
     res.status(400);
     res.json({ message: "Invalid input data" });
   }
-});
+};
 
-userRoutes.get("/", async (req, res) => {
+export const readUsers: RequestHandler = async (req, res) => {
   try {
     const users = await User.find();
     res.status(200);
@@ -23,6 +21,4 @@ userRoutes.get("/", async (req, res) => {
     res.status(400);
     res.json({ message: "Invalid input data" });
   }
-});
-
-export default userRoutes;
+};
