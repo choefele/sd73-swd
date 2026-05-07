@@ -1,18 +1,25 @@
 import { Schema, model } from "mongoose";
 
-const userSchema = new Schema(
+export interface User {
+  name: string;
+}
+
+const userSchema = new Schema<User>(
   {
-    name: { type: String, required: true },
+    name: { type: String, required: true, trim: true },
   },
   {
     toJSON: {
       virtuals: true,
-      transform: function (doc) {
-        const { __v, _id, ...plain } = doc.toObject();
-        return plain;
+      transform: function (_doc, ret) {
+        const serialized = ret as { __v?: unknown; _id?: unknown };
+        delete serialized.__v;
+        delete serialized._id;
+        return ret;
       },
     },
     toObject: { virtuals: true },
   },
 );
+
 export default model("User", userSchema);
