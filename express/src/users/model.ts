@@ -1,10 +1,15 @@
 import { Schema, model } from "mongoose";
+import { z } from "zod";
 
-export interface User {
-  name: string;
-}
+export const userInputSchema = z.strictObject({
+  name: z
+    .string({ error: "Name must be a string" })
+    .min(1, { message: "Name is required" }),
+});
 
-const userSchema = new Schema<User>(
+export type UserInput = z.infer<typeof userInputSchema>;
+
+const userSchema = new Schema<UserInput>(
   {
     name: { type: String, required: true, trim: true },
   },
@@ -22,4 +27,4 @@ const userSchema = new Schema<User>(
   },
 );
 
-export default model("User", userSchema);
+export const UserModel = model("User", userSchema);

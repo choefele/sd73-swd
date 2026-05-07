@@ -1,9 +1,10 @@
 import type { RequestHandler } from "express";
-import User from "./model.js";
+import { UserModel, userInputSchema } from "./model.js";
 
 export const createUser: RequestHandler = async (req, res) => {
   try {
-    const user = await User.create(req.body);
+    const userInput = userInputSchema.parse(req.body);
+    const user = await UserModel.create(userInput);
     res.status(201);
     res.json(user);
   } catch (error) {
@@ -14,7 +15,7 @@ export const createUser: RequestHandler = async (req, res) => {
 
 export const readUsers: RequestHandler = async (req, res) => {
   try {
-    const users = await User.find();
+    const users = await UserModel.find();
     res.status(200);
     res.json(users);
   } catch (error) {

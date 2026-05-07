@@ -3,25 +3,6 @@ import { describe, expect, it } from "vitest";
 import { app } from "../app.js";
 
 describe("users API", () => {
-  // it("creates a user without exposing MongoDB fields", async () => {
-  //   const response = await request(app)
-  //     .post("/users")
-  //     .send({
-  //       name: "Ada",
-  //       _id: "507f1f77bcf86cd799439011",
-  //       __v: 99,
-  //     })
-  //     .expect(201);
-
-  //   expect(response.body).toEqual({
-  //     id: expect.any(String),
-  //     name: "Ada",
-  //   });
-  //   expect(response.body.id).not.toBe("507f1f77bcf86cd799439011");
-  //   expect(response.body).not.toHaveProperty("_id");
-  //   expect(response.body).not.toHaveProperty("__v");
-  // });
-
   it("rejects invalid create input", async () => {
     const response = await request(app).post("/users").send({}).expect(400);
 
