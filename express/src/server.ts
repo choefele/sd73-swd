@@ -1,6 +1,6 @@
 import express from "express";
-import { createUser, readUsers } from "./controllers/users.js";
 import "./db.js";
+import userRouter from "./users/routes.js";
 
 export const app = express();
 
@@ -12,8 +12,7 @@ app.get("/health", (_request, response) => {
   });
 });
 
-app.post("/users", createUser);
-app.get("/users", readUsers);
+app.use(userRouter);
 
 if (process.env.NODE_ENV !== "test") {
   const port = Number(process.env.PORT) || 3000;
