@@ -11,6 +11,8 @@ A minimal Express server using Node.js, TypeScript, native ESM modules, and tsx 
 
 Both `npm run dev` and `npm start` load local configuration from `.env` when the file exists.
 
+The Express app is defined in `src/app.ts` without connecting to MongoDB. Runtime startup in `src/server.ts` connects to MongoDB first, then starts listening.
+
 ## Endpoints
 
 - `GET /` returns a hello message.

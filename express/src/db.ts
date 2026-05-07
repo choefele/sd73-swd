@@ -1,9 +1,19 @@
 import mongoose from "mongoose";
 
-try {
-  await mongoose.connect(process.env.MONGO_URI!, { dbName: "project0" });
+export async function connectDb() {
+  const mongoUri = process.env.MONGO_URI;
+
+  if (!mongoUri) {
+    throw new Error("MONGO_URI is required");
+  }
+
+  await mongoose.connect(mongoUri, {
+    dbName: process.env.MONGO_DB || "project0",
+  });
+
   console.log("MongoDB connected");
-} catch (error) {
-  console.error("Error connecting to MongoDB", error);
-  process.exit(1);
+}
+
+export async function disconnectDb() {
+  await mongoose.disconnect();
 }

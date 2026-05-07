@@ -1,24 +1,16 @@
-import express from "express";
-import "./db.js";
-import userRouter from "./users/routes.js";
+import { app } from "./app.js";
+import { connectDb } from "./db.js";
 
-export const app = express();
+try {
+  await connectDb();
 
-app.use(express.json());
-
-app.get("/health", (_request, response) => {
-  response.json({
-    status: "ok",
-  });
-});
-
-app.use(userRouter);
-
-if (process.env.NODE_ENV !== "test") {
   const port = Number(process.env.PORT) || 3000;
   const host = process.env.HOST || "127.0.0.1";
 
   app.listen(port, host, () => {
     console.log(`Server listening on http://${host}:${port}`);
   });
+} catch (error) {
+  console.error("Error starting server", error);
+  process.exit(1);
 }
