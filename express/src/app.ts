@@ -13,7 +13,7 @@ app.get("/health", (_request, response) => {
 });
 
 app.use(userRouter);
-app.use("*splat", (req, res, next) => {
+app.use("{*splat}", (req, res, next) => {
   throw new Error("Not Found", { cause: { status: 404 } });
 });
 app.use(errorHandler);

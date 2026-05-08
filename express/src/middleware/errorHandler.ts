@@ -1,8 +1,6 @@
 import { type ErrorRequestHandler } from "express";
 
 const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
-  process.env.NODE_ENV !== "production" && console.log(err.stack);
-
   let errorMessage = "Internal server error";
   let statusCode = 500;
 
@@ -13,6 +11,9 @@ const errorHandler: ErrorRequestHandler = (err, req, res, next) => {
     }
     errorMessage = err.message;
   }
+  process.env.NODE_ENV !== "production" &&
+    statusCode != 404 &&
+    console.log(err.stack);
   res.status(statusCode).json({ error: errorMessage });
 };
 
