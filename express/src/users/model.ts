@@ -24,6 +24,7 @@ const userSchema = new Schema<UserInput>(
       },
     },
     toObject: { virtuals: true },
+    timestamps: true,
   },
 );
 

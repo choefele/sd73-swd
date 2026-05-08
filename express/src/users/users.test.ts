@@ -2,12 +2,30 @@ import request from "supertest";
 import { describe, expect, it } from "vitest";
 import { app } from "../app.js";
 
+const isoPattern = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d{3}Z$/;
+
 describe("users API", () => {
   it("rejects invalid create input", async () => {
     const response = await request(app).post("/users").send({}).expect(400);
 
     expect(response.body).toEqual({
       message: "Invalid input data",
+    });
+  });
+
+  it("creates a new user", async () => {
+    const response = await request(app)
+      .post("/users")
+      .send({
+        name: "name",
+      })
+      .expect(201);
+
+    expect(response.body).toEqual({
+      id: expect.any(String),
+      name: "name",
+      createdAt: expect.stringMatching(isoPattern),
+      updatedAt: expect.stringMatching(isoPattern),
     });
   });
 
@@ -21,16 +39,15 @@ describe("users API", () => {
       {
         id: expect.any(String),
         name: "Ada",
+        createdAt: expect.stringMatching(isoPattern),
+        updatedAt: expect.stringMatching(isoPattern),
       },
       {
         id: expect.any(String),
         name: "Grace",
+        createdAt: expect.stringMatching(isoPattern),
+        updatedAt: expect.stringMatching(isoPattern),
       },
     ]);
-
-    for (const user of response.body) {
-      expect(user).not.toHaveProperty("_id");
-      expect(user).not.toHaveProperty("__v");
-    }
   });
 });
