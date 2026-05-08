@@ -1,10 +1,9 @@
 import type { RequestHandler } from "express";
-import { UserModel, userInputSchema } from "./model.js";
+import { UserModel } from "./model.js";
 
 export const createUser: RequestHandler = async (req, res) => {
   try {
-    const userInput = userInputSchema.parse(req.body);
-    const user = await UserModel.create(userInput);
+    const user = await UserModel.create(req.body);
     res.status(201);
     res.json(user);
   } catch (error) {
