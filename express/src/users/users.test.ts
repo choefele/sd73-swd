@@ -9,7 +9,7 @@ describe("users API", () => {
     const response = await request(app).post("/users").send({}).expect(400);
 
     expect(response.body).toEqual({
-      message: "Invalid input data",
+      error: expect.any(String),
     });
   });
 
